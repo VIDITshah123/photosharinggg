@@ -3,6 +3,7 @@
   flex-direction: column;
   height: 100%;
   background-color: #fff;
+  border-right: 1px solid #e9edef;
 }
 
 .group-list-header {
@@ -10,22 +11,20 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-  background-color: #f0f2f5; /* WhatsApp header gray */
+  background-color: #f0f2f5;
   border-bottom: 1px solid #e9edef;
 }
 
-.group-list-header h2 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin: 0;
-  color: #111b21;
+.header-icons-right {
+  display: flex;
+  align-items: center;
 }
 
+.back-btn,
 .create-group-btn {
   background: none;
   border: none;
   color: #54656f;
-  font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 50%;
@@ -34,35 +33,36 @@
   justify-content: center;
 }
 
+.create-group-btn {
+  margin-left: 1rem;
+}
+
+.back-btn:hover,
 .create-group-btn:hover {
   background-color: #e9edef;
 }
 
 .list-group {
-  flex-grow: 1;
   overflow-y: auto;
+  flex-grow: 1;
+  border-radius: 0;
 }
 
 .list-group-item {
-  display: flex !important;
+  display: flex;
   align-items: center;
+  padding: 12px 16px;
+  border: none;
+  border-bottom: 1px solid #f0f2f5;
   cursor: pointer;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 12px 16px !important;
-  border-bottom: 1px solid #f0f2f5 !important; /* Subtle separator */
-  color: #111b21;
-  background-color: #fff;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.list-group-item:hover {
-  background-color: #f5f6f6 !important; /* Hover effect */
 }
 
 .list-group-item.active {
-  background-color: #f0f2f5 !important; /* Active chat color */
-  color: #111b21 !important;
+  background-color: #e9edef;
+}
+
+.list-group-item:hover:not(.active) {
+  background-color: #f5f6f6;
 }
 
 .group-item-avatar {
@@ -70,27 +70,42 @@
 }
 
 .group-item-info {
-  display: flex;
-  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 .group-item-name {
   font-weight: 500;
+  color: #111b21;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .group-item-last-message {
   font-size: 0.9rem;
   color: #667781;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-dropdown .dropdown-toggle {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0;
+  margin: 0;
 }
 
 .profile-dropdown .dropdown-toggle::after {
-  display: none; /* Hide the default caret */
+  display: none;
 }
 
 .profile-dropdown .dropdown-menu {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border: 1px solid #e9edef;
+  min-width: 10rem;
 }
 
 .profile-dropdown .dropdown-item {

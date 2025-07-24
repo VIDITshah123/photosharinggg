@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, NavDropdown } from 'react-bootstrap';
-import { FaUserCircle, FaPlus, FaSignOutAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaUserCircle, FaPlus, FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
@@ -39,18 +39,23 @@ const GroupList = ({ groups, setGroups, onSelectGroup, selectedGroupId }) => {
   return (
     <div className="group-list-container">
       <div className="group-list-header">
-        <NavDropdown
-          title={<FaUserCircle size="2.5rem" color="#54656f" />}
-          id="profile-dropdown"
-          className="profile-dropdown"
-        >
-          <NavDropdown.Item onClick={handleLogout}>
-            <FaSignOutAlt className="me-2" /> Logout
-          </NavDropdown.Item>
-        </NavDropdown>
-        <Button variant="link" className="create-group-btn" onClick={() => setShowCreateModal(true)}>
-          <FaPlus />
+        <Button variant="link" className="back-btn" onClick={() => navigate('/dashboard')}>
+          <FaArrowLeft size="1.5rem" color="#54656f" />
         </Button>
+        <div className="header-icons-right">
+          <NavDropdown
+            title={<FaUserCircle size="2.5rem" color="#54656f" />}
+            id="profile-dropdown"
+            className="profile-dropdown"
+          >
+            <NavDropdown.Item onClick={handleLogout}>
+              <FaSignOutAlt className="me-2" /> Logout
+            </NavDropdown.Item>
+          </NavDropdown>
+          <Button variant="link" className="create-group-btn" onClick={() => setShowCreateModal(true)}>
+            <FaPlus />
+          </Button>
+        </div>
       </div>
       <div className="list-group">
         {groups.map((group) => (

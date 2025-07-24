@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import { Nav } from 'react-bootstrap';
@@ -23,6 +23,12 @@ import GroupsPage from './pages/GroupsPage';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth();
+
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      alert('This site is best viewed on a desktop. For the best experience, please switch to a larger screen.');
+    }
+  }, []);
 
   if (isLoading) {
     return (
