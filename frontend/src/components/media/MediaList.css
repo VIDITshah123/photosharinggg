@@ -1,0 +1,78 @@
+.media-list-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10%;
+}
+
+.chat-message {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.chat-message.sent {
+  justify-content: flex-end;
+}
+
+.chat-message.received {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 60%;
+  padding: 10px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.chat-message.sent .message-bubble {
+  background-color: #d9fdd3; /* WhatsApp sent message green */
+}
+
+.chat-message.received .message-bubble {
+  background-color: #fff; /* WhatsApp received message white */
+}
+
+.message-sender {
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #53bdeb;
+  margin-bottom: 5px;
+}
+
+.message-content img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #54656f;
+}
+
+.video-placeholder p {
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+.message-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  color: #667781;
+  margin-right: 10px;
+}
+
+.download-btn {
+  background: none;
+  border: none;
+  color: #667781;
+  cursor: pointer;
+}

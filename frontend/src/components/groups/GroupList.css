@@ -1,0 +1,105 @@
+.group-list-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #fff;
+}
+
+.group-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #f0f2f5; /* WhatsApp header gray */
+  border-bottom: 1px solid #e9edef;
+}
+
+.group-list-header h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+  color: #111b21;
+}
+
+.create-group-btn {
+  background: none;
+  border: none;
+  color: #54656f;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-group-btn:hover {
+  background-color: #e9edef;
+}
+
+.list-group {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.list-group-item {
+  display: flex !important;
+  align-items: center;
+  cursor: pointer;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 12px 16px !important;
+  border-bottom: 1px solid #f0f2f5 !important; /* Subtle separator */
+  color: #111b21;
+  background-color: #fff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.list-group-item:hover {
+  background-color: #f5f6f6 !important; /* Hover effect */
+}
+
+.list-group-item.active {
+  background-color: #f0f2f5 !important; /* Active chat color */
+  color: #111b21 !important;
+}
+
+.group-item-avatar {
+  margin-right: 15px;
+}
+
+.group-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-item-name {
+  font-weight: 500;
+}
+
+.group-item-last-message {
+  font-size: 0.9rem;
+  color: #667781;
+}
+
+.profile-dropdown .dropdown-toggle::after {
+  display: none; /* Hide the default caret */
+}
+
+.profile-dropdown .dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9edef;
+}
+
+.profile-dropdown .dropdown-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+}
+
+.profile-dropdown .dropdown-item:hover {
+  background-color: #f5f6f6;
+}

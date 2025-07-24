@@ -1,0 +1,49 @@
+.groups-page-container {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  overflow: hidden;
+  background-color: #f0f2f5; /* WhatsApp Web background color */
+}
+
+.groups-list-panel {
+  flex: 0 0 30%;
+  max-width: 400px;
+  min-width: 300px;
+  background-color: #fff; /* White background for the list */
+  border-right: 1px solid #e9edef; /* Subtle border */
+  display: flex;
+  flex-direction: column;
+}
+
+.group-details-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* WhatsApp-like chat background */
+  background-color: #e5ddd5;
+  background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+}
+
+.no-group-selected {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  color: #4a4a4a;
+  background-color: #f8f9fa;
+  border-bottom: 6px solid #43c960; /* WhatsApp green accent */
+}
+
+.no-group-selected h2 {
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.no-group-selected p {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #667781;
+}
