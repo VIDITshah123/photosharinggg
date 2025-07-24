@@ -222,4 +222,96 @@ router.delete('/:id/members/:userId', authenticateToken, (req, res) => {
   });
 });
 
+// POST /api/groups/:id/leave - Leave a group
+router.post('/:id/leave', authenticateToken, (req, res) => {
+  const userId = req.user.user.id;
+  const groupId = req.params.id;
+  const db = req.app.locals.db;
+
+  db.serialize(() => {
+    db.run('BEGIN TRANSACTION');
+
+    const getMemberSql = 'SELECT role FROM group_members WHERE group_id = ? AND user_id = ?';
+    db.get(getMemberSql, [groupId, userId], (err, member) => {
+      if (err) {
+        return db.run('ROLLBACK', () => res.status(500).json({ error: 'Database error checking membership' }));
+      }
+      if (!member) {
+        return db.run('ROLLBACK', () => res.status(404).json({ error: 'You are not a member of this group' }));
+      }
+
+      const getCountsSql = `
+        SELECT
+          COUNT(*) as memberCount,
+          SUM(CASE WHEN role = 'admin' THEN 1 ELSE 0 END) as adminCount
+        FROM group_members WHERE group_id = ?
+      `;
+      db.get(getCountsSql, [groupId], (err, counts) => {
+        if (err) {
+          return db.run('ROLLBACK', () => res.status(500).json({ error: 'Database error counting members' }));
+        }
+
+        if (member.role === 'admin' && counts.adminCount === 1 && counts.memberCount > 1) {
+          return db.run('ROLLBACK', () => res.status(400).json({ error: 'You are the last admin. Please promote another member before leaving.' }));
+        }
+
+        const leaveSql = 'DELETE FROM group_members WHERE group_id = ? AND user_id = ?';
+        db.run(leaveSql, [groupId, userId], function(err) {
+          if (err) {
+            return db.run('ROLLBACK', () => res.status(500).json({ error: 'Failed to leave the group' }));
+          }
+          db.run('COMMIT', () => res.json({ message: 'Successfully left the group' }));
+        });
+      });
+    });
+  });
+});
+
+// DELETE /api/groups/:id - Delete a group
+router.delete('/:id', authenticateToken, (req, res) => {
+  const userId = req.user.user.id;
+  const groupId = req.params.id;
+  const db = req.app.locals.db;
+
+  db.serialize(() => {
+    db.run('BEGIN TRANSACTION');
+
+    const getMembersSql = 'SELECT user_id FROM group_members WHERE group_id = ?';
+    db.all(getMembersSql, [groupId], (err, members) => {
+      if (err) {
+        return db.run('ROLLBACK', () => res.status(500).json({ error: 'Database error fetching members' }));
+      }
+
+      if (members.length > 1) {
+        return db.run('ROLLBACK', () => res.status(400).json({ error: 'Cannot delete a group with other members in it.' }));
+      }
+
+      if (members.length === 0 || String(members[0].user_id) !== String(userId)) {
+        return db.run('ROLLBACK', () => res.status(403).json({ error: 'You do not have permission to delete this group.' }));
+      }
+
+      // Proceed with deletion
+      const deleteMediaSql = 'DELETE FROM media WHERE group_id = ?';
+      db.run(deleteMediaSql, [groupId], (err) => {
+        if (err) {
+          return db.run('ROLLBACK', () => res.status(500).json({ error: 'Failed to delete group media' }));
+        }
+        const deleteMembersSql = 'DELETE FROM group_members WHERE group_id = ?';
+        db.run(deleteMembersSql, [groupId], (err) => {
+          if (err) {
+            return db.run('ROLLBACK', () => res.status(500).json({ error: 'Failed to delete group members' }));
+          }
+          const deleteGroupSql = 'DELETE FROM groups WHERE id = ?';
+          db.run(deleteGroupSql, [groupId], (err) => {
+            if (err) {
+              return db.run('ROLLBACK', () => res.status(500).json({ error: 'Failed to delete the group' }));
+            }
+            db.run('COMMIT', () => res.json({ message: 'Group deleted successfully' }));
+          });
+        });
+      });
+    });
+  });
+});
+
 module.exports = router;

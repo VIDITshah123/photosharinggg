@@ -7,8 +7,7 @@ import api from '../../services/api';
 import CreateGroupModal from './CreateGroupModal';
 import './GroupList.css';
 
-const GroupList = ({ onSelectGroup, selectedGroupId }) => {
-  const [groups, setGroups] = useState([]);
+const GroupList = ({ groups, setGroups, onSelectGroup, selectedGroupId }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
@@ -17,16 +16,15 @@ const GroupList = ({ onSelectGroup, selectedGroupId }) => {
     const fetchGroups = async () => {
       try {
         const response = await api.get('/groups');
-        setGroups(response.data);
+        const sortedGroups = response.data.sort((a, b) => a.name.localeCompare(b.name));
+        setGroups(sortedGroups);
       } catch (error) {
         console.error('Failed to fetch groups', error);
       }
     };
 
-    if (currentUser) {
-      fetchGroups();
-    }
-  }, [currentUser]);
+    fetchGroups();
+  }, [setGroups]);
 
   const handleGroupCreated = (newGroup) => {
     setGroups([...groups, newGroup].sort((a, b) => a.name.localeCompare(b.name)));

@@ -38,6 +38,45 @@
   border-top: 1px solid #e9edef;
 }
 
+.group-footer {
+  padding: 10px 16px;
+  background-color: #f0f2f5; /* WhatsApp footer color */
+  border-top: 1px solid #e9edef;
+}
+
+.group-header-actions {
+  margin-left: auto;
+}
+
+.group-actions-dropdown .dropdown-toggle {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0;
+  margin: 0;
+}
+
+.group-actions-dropdown .dropdown-toggle::after {
+  display: none; /* Hide the default caret */
+}
+
+.group-actions-dropdown .dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9edef;
+  min-width: 10rem;
+}
+
+.group-actions-dropdown .dropdown-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+}
+
+.group-actions-dropdown .dropdown-item:hover {
+  background-color: #f5f6f6;
+}
+
 .dropzone {
   border: 2px dashed #d1d7db;
   border-radius: 8px;
